@@ -9,6 +9,21 @@
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: $orange;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+	color: white;
+}
+
+footer {
+	position: relative;
+	left: 0;
+	bottom: 0;
+	padding: 10px;
+	background-color: $orange;
+	width: 100%;
+	text-align: center;
+	color: white;
 }
