@@ -31,7 +31,7 @@ footer {
 .letra {
 	width: 75px;
 	height: 75px;
-    border: 1px solid black;
+	cursor: pointer;
     border-radius: 15px;
     font-size: 45px;
     margin-left: 10px;
@@ -42,4 +42,13 @@ footer {
 
 .letra span {
     line-height: 75px;
+    color: white;
+}
+
+.btn-black {
+	@include button-variant(black, white, #555555);
+}
+
+.btn-pink {
+	@include button-variant(deeppink, white, hotpink);
 }
