@@ -52,3 +52,24 @@ footer {
 .btn-pink {
 	@include button-variant(deeppink, white, hotpink);
 }
+.btn-blue {
+	@include button-variant(#435FEC, white, #8190E0);
+}
+.btn-rose {
+	@include button-variant(#F314A4, white, #F5A5D9);
+}
+.btn-roxo {
+	@include button-variant(#751654, white, #CA69A8);
+}
+.btn-verde {
+	@include button-variant(#10BC10, white, #86ED86);
+}
+.btn-cinza {
+	@include button-variant(#9CA8A5, white, #D9DEDC);
+}
+.btn-tomato {
+	@include button-variant(#FF6347, white, #FFA07A);
+}
+.btn-oceano {
+	@include button-variant(#00FFFF, white, #40E0D0);
+}
