@@ -1,0 +1,16 @@
+/*! https://www.dafont.com/pt/mamae-que-nos-faz.font */
+
+
+
+@font-face {
+    font-family: 'mamaequenosfaz';
+    src: url('maria_lucia.eot');
+    src: url('maria_lucia.eot?#iefix') format('embedded-opentype'),
+         url('maria_lucia.woff2') format('woff2'),
+         url('maria_lucia.woff') format('woff'),
+         url('maria_lucia.ttf') format('truetype'),
+         url('maria_lucia.svg#mamaequenosfazregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

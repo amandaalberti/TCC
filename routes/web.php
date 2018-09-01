@@ -19,6 +19,12 @@ Route::get('/alfabeto', function(){
 	return view('aluno.alfabeto');
 });
 
+Route::get('/opcoes/{letra}', function($letra){
+	return view('aluno.opcoes')->with('letra', $letra);
+})->name('opcoes');
+
+Route::get('/video/{tipo}/{letra}', 'VideosController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

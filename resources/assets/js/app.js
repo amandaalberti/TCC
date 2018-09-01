@@ -20,3 +20,29 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+
+$(function(){
+	$('.letra').on('click', function(){
+		var letra = $(this).find('span').text();
+		window.location = window.addr + '/opcoes/' + letra;
+	});
+
+	//Se está na página de opções
+	if($('#assistir-video').length){
+		//Associa os eventos
+		let redirecionaAoVideo = function(tipo){
+			let letra = $('#letra').val();
+
+			window.location = addr + '/video/' + tipo + '/' + letra;
+		}
+
+		$('#assistir-video').on('click', function(){
+			redirecionaAoVideo('historia');
+		});
+
+		$('#metodo-boquinhas').on('click', function(){
+			redirecionaAoVideo('boquinha');
+		});
+	}
+});

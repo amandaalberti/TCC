@@ -10,12 +10,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script type="text/javascript">
+        window.addr = '{{ url('/') }}';
+    </script>
+
     <!-- Scripts -->
     <script src="{{ url(mix('js/app.js')) }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link type="text/css" href="{{ asset('fonts/cursiva/fonte-cursiva.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ url(mix('css/app.css')) }}" rel="stylesheet">
@@ -65,7 +70,13 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container-fluid">
+                <div class="d-flex align-items-center" style="min-height: 555px;">
+                    <div style="display: block !important; width: 100% !important;">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer>

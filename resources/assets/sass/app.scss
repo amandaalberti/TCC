@@ -8,6 +8,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import "~font-awesome/scss/font-awesome.scss";
+
 .navbar-laravel {
   background-color: $orange;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -45,6 +47,29 @@ footer {
     color: white;
 }
 
+.letra-video {
+	color: #FF6347;
+	font-size: 125px;
+	font-family: 'Comic Sans MS'
+}
+
+.letra-video-cursiva {
+	font-family: 'mamaequenosfaz';
+	font-weight: bold;
+}
+
+.opcao {
+	cursor: pointer;
+}
+
+.opcao:hover {
+	background-color: #F0F0F0;
+}
+
+.label-opcao {
+	font-size: 25px;
+}
+
 .btn-black {
 	@include button-variant(black, white, #555555);
 }
@@ -72,4 +97,15 @@ footer {
 }
 .btn-oceano {
 	@include button-variant(#00FFFF, white, #40E0D0);
+}
+
+.btn-xlg {
+    padding: 0.5rem 1rem;
+    font-size: 1.333rem;
+    line-height: 1.8;
+    border-radius: 0.3rem;
+}
+
+video {
+	width: 100%;
 }
