@@ -8,18 +8,18 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" id="frmLogin">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="usuario" class="col-sm-4 col-form-label text-md-right">Nome de usuário</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('usuario'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('usuario') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -53,8 +53,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                <input type="hidden" name="tipo" id="tipo" value="" />
+                                <button type="button" onClick="$('#tipo').val('professor'); $('#frmLogin').submit();" class="btn btn-primary">
+                                    Sou Professor
+                                </button>
+                                <button type="button" onClick="$('#tipo').val('aluno'); $('#frmLogin').submit();" class="btn btn-primary">
+                                    Sou Aluno
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
