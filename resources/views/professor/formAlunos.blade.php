@@ -72,7 +72,13 @@
         <label for="data-nascimento" class="col-md-4 col-form-label text-md-right">Data de Nascimento</label>
 
         <div class="col-md-6">
-            <date-picker id="data-nascimento" :config="{locale:'pt-br', useStrict:true, format:'DD/MM/YYYY', useCurrent: false, defaultDate: ''}" name="data_nascimento" value="{{ old('data_nascimento') ?? ($aluno['data_nascimento'] ?? '') }}"></date-picker>
+            <date-picker id="data-nascimento" :config="{locale:'pt-br', useStrict:true, format:'DD/MM/YYYY', useCurrent: false, defaultDate: ''}" name="data_nascimento" value="{{ old('data_nascimento') ?? ($aluno['data_nascimento'] ?? '') }}" required></date-picker>
+
+            @if ($errors->has('data_nascimento'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('data_nascimento') }}</strong>
+                </span>
+            @endif
         </div>
     </div>
 
@@ -85,6 +91,12 @@
             	<option value="Masculino"{{ (old('sexo') ?? ($aluno['sexo'] ?? '')) == 'Masculino' ? ' selected="selected"' : '' }}>Masculino</option>
             	<option value="Feminino"{{ (old('sexo') ?? ($aluno['sexo'] ?? '')) == 'Feminino' ? ' selected="selected"' : '' }}>Feminino</option>
             </select>
+
+            @if ($errors->has('sexo'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('sexo') }}</strong>
+                </span>
+            @endif
         </div>
     </div>
 

@@ -21,7 +21,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th style="width: 1px;">ID</th>
+					<th style="width: 1px;">Usuário</th>
 					<th>Nome</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -29,7 +29,7 @@
 			<tbody>
 				@foreach($alunos as $aluno)
 				<tr>
-					<td>{{ $aluno['id'] }}</td>
+					<td>{{ $aluno['usuario'] }}</td>
 					<td>{{ $aluno['nome'] }}</td>
 					<td class="pull-right">
 						<a href="{{ route('aluno.editar', $aluno['id']) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>

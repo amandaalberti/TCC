@@ -16,7 +16,7 @@ class AlunosController extends Controller
     }
 
     public function index(){
-    	$alunos = Aluno::paginate(50);
+    	$alunos = Aluno::where('professor_id', '=', Auth::user()->id)->orderBy('id','asc')->paginate(50);
 
 		return view('professor.alunos')->with('alunos', $alunos)->with('action', route('aluno.delete'));
 	}
@@ -27,7 +27,7 @@ class AlunosController extends Controller
 
 	public function store(Request $request){
 		$validated = $request->validate([
-	        'usuario' => 'required|string|max:50',
+	        'usuario' => 'required|string|max:50|unique:alunos',
 			'nome' => 'required|string|max:100',
 			'senha' => 'required|confirmed|string|min:6',
 			'data_nascimento' => 'required|date_format:d/m/Y',
@@ -42,11 +42,14 @@ class AlunosController extends Controller
 
 		$aluno = Aluno::create($validated);
 
+	    session()->flash('alert-class', 'alert-success');
+	    session()->flash('message', 'Aluno criado com sucesso!');
+
 		return redirect()->route('aluno.editar', $aluno->id);
 	}
 
 	public function edit($id){
-		$aluno = Aluno::findOrFail($id);
+		$aluno = Aluno::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
 
 		$aluno['data_nascimento'] = Carbon::createFromFormat('Y-m-d', $aluno['data_nascimento'])->format('d/m/Y');
 
@@ -55,7 +58,7 @@ class AlunosController extends Controller
 
 	public function update(Request $request, $id){
 		$validated = $request->validate([
-	        'usuario' => 'required|string|max:50',
+	        'usuario' => 'required|string|max:50|unique:alunos',
 			'nome' => 'required|string|max:100',
 			'data_nascimento' => 'required|date_format:d/m/Y',
 			'sexo' => 'required|in:Masculino,Feminino',
@@ -83,7 +86,10 @@ class AlunosController extends Controller
 
 	    $validated['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $validated['data_nascimento']);
 
-	    Aluno::where('id','=',$id)->update($validated);
+	    Aluno::where('id','=',$id)->where('professor_id', '=', Auth::user()->id)->update($validated);
+
+	    session()->flash('alert-class', 'alert-success');
+	    session()->flash('message', 'Aluno editado com sucesso!');
 
 	    return redirect()->route('alunos.index');
 	}
@@ -91,8 +97,12 @@ class AlunosController extends Controller
 	public function delete(){
 		$id = request()->input('delete_id');
 
-		if($id)
-			Aluno::where('id','=',$id)->delete();
+		if($id){
+			Aluno::where('id','=',$id)->where('professor_id', '=', Auth::user()->id)->delete();
+
+			session()->flash('alert-class', 'alert-success');
+			session()->flash('message', 'Aluno excluído com sucesso!');
+		}
 
 		return redirect()->route('alunos.index');
 	}

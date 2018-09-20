@@ -73,6 +73,15 @@
             <div class="container-fluid">
                 <div class="d-flex align-items-center" style="min-height: 555px;">
                     <div style="display: block !important; width: 100% !important;">
+                        @if(Session::has('message'))
+                        <div class="alert {{ Session::get('alert-class', 'alert-primary') }} alert-dismissible fade show" role="alert">
+                            {{ Session::get('message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+
                         @yield('content')
                     </div>
                 </div>
