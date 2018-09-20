@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aluno;
 use Auth;
 use Validator;
+use Hash;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,8 @@ class AlunosController extends Controller
 	    $validated['professor_id'] = Auth::user()->id;
 
 	    $validated['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $validated['data_nascimento']);
+
+	    $validated['senha'] = Hash::make($validated['senha']);
 
 		$aluno = Aluno::create($validated);
 
@@ -83,6 +86,9 @@ class AlunosController extends Controller
 			unset($validated['senha']);
 
 		unset($validated['senha_confirmation']);
+
+		if(isset($validated['senha']))
+			$validated['senha'] = Hash::make($validated['senha']);
 
 	    $validated['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $validated['data_nascimento']);
 
