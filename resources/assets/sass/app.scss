@@ -92,6 +92,9 @@ footer {
 .btn-cinza {
 	@include button-variant(#9CA8A5, white, #D9DEDC);
 }
+.btn-cinza-claro {
+	@include button-variant(#D9DEDC, white, #EFEFEF);
+}
 .btn-tomato {
 	@include button-variant(#FF6347, white, #FFA07A);
 }

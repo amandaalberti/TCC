@@ -60,14 +60,20 @@ class AlunosController extends Controller
 	}
 
 	public function update(Request $request, $id){
-		$validated = $request->validate([
-	        'usuario' => 'required|string|max:50|unique:alunos',
+		$aluno = Aluno::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
+
+		$validacao = [
 			'nome' => 'required|string|max:100',
 			'data_nascimento' => 'required|date_format:d/m/Y',
 			'sexo' => 'required|in:Masculino,Feminino',
 			'deficiencia' => 'required|string|max:50',
 			'dificuldades' => 'required|string|max:500'
-	    ]);
+	    ];
+
+		if($aluno->usuario != $request->input('usuario'))
+	        $validacao['usuario'] = 'required|string|max:50|unique:alunos';
+
+		$validated = $request->validate($validacao);
 
 	    $validated['senha'] = $request->input('senha');
 	    $validated['senha_confirmation'] = $request->input('senha_confirmation');
@@ -92,7 +98,7 @@ class AlunosController extends Controller
 
 	    $validated['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $validated['data_nascimento']);
 
-	    Aluno::where('id','=',$id)->where('professor_id', '=', Auth::user()->id)->update($validated);
+	    $aluno->update($validated);
 
 	    session()->flash('alert-class', 'alert-success');
 	    session()->flash('message', 'Aluno editado com sucesso!');

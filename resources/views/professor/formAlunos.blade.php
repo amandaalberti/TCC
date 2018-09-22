@@ -16,7 +16,7 @@
     @csrf
 
     @if(!$create)
-    {{ method_field('PATCH') }}
+    @method('PATCH')
     @endif
 
 	<div class="form-group row">

@@ -1,14 +1,18 @@
 @extends('layouts.app')
-
+@push('nav')
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('register') }}">Cadastrar Professor</a>
+</li>
+@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);">Login</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" id="frmLogin">
+                    <form method="POST" action="{{ route('login') }}" aria-label="Login" id="frmLogin">
                         @csrf
 
                         <div class="form-group row">
@@ -26,7 +30,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -45,7 +49,7 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        Manter conectado
                                     </label>
                                 </div>
                             </div>
@@ -54,15 +58,15 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <input type="hidden" name="tipo" id="tipo" value="" />
-                                <button type="button" onClick="$('#tipo').val('professor'); $('#frmLogin').submit();" class="btn btn-primary">
+                                <button type="button" onClick="$('#tipo').val('professor'); $('#frmLogin').submit();" class="btn btn-cinza-claro">
                                     Sou Professor
                                 </button>
-                                <button type="button" onClick="$('#tipo').val('aluno'); $('#frmLogin').submit();" class="btn btn-primary">
+                                <button type="button" onClick="$('#tipo').val('aluno'); $('#frmLogin').submit();" class="btn btn-cinza-claro">
                                     Sou Aluno
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                    Esqueceu sua senha?
                                 </a>
                             </div>
                         </div>
