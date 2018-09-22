@@ -15,7 +15,7 @@
                             <label for="usuario" class="col-md-4 col-form-label text-md-right">Nome de Usuário (Login)</label>
 
                             <div class="col-md-6">
-                                <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required>
+                                <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
 
                                 @if ($errors->has('usuario'))
                                     <span class="invalid-feedback" role="alert">

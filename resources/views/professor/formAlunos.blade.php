@@ -23,7 +23,7 @@
         <label for="usuario" class="col-md-4 col-form-label text-md-right">Nome de Usuário (Login)</label>
 
         <div class="col-md-6">
-            <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') ?? ($aluno['usuario'] ?? '') }}" required>
+            <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') ?? ($aluno['usuario'] ?? '') }}" required>
 
             @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
         <label for="nome" class="col-md-4 col-form-label text-md-right">Nome</label>
 
         <div class="col-md-6">
-            <input id="nome" type="nome" class="form-control{{ $errors->has('nome') ? ' is-invalid' : '' }}" name="nome" value="{{ old('nome') ?? ($aluno['nome'] ?? '') }}" required>
+            <input id="nome" type="text" class="form-control{{ $errors->has('nome') ? ' is-invalid' : '' }}" name="nome" value="{{ old('nome') ?? ($aluno['nome'] ?? '') }}" required>
 
             @if ($errors->has('nome'))
                 <span class="invalid-feedback" role="alert">
@@ -104,7 +104,7 @@
         <label for="deficiencia" class="col-md-4 col-form-label text-md-right">Deficiência</label>
 
         <div class="col-md-6">
-            <input id="deficiencia" type="deficiencia" class="form-control{{ $errors->has('deficiencia') ? ' is-invalid' : '' }}" name="deficiencia" value="{{ old('deficiencia') ?? ($aluno['deficiencia'] ?? '') }}" required>
+            <input id="deficiencia" type="text" class="form-control{{ $errors->has('deficiencia') ? ' is-invalid' : '' }}" name="deficiencia" value="{{ old('deficiencia') ?? ($aluno['deficiencia'] ?? '') }}" required>
 
             @if ($errors->has('deficiencia'))
                 <span class="invalid-feedback" role="alert">

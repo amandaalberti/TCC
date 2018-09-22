@@ -43,3 +43,12 @@ Route::group(['prefix' => '/alunos'], function(){
 	Route::patch('/update/{id}', 'AlunosController@update')->name('aluno.update')->middleware('auth:professor');
 	Route::post('/delete', 'AlunosController@delete')->name('aluno.delete')->middleware('auth:professor');
 });
+
+Route::group(['prefix' => '/palavras'], function(){
+	Route::get('/', 'PalavrasController@index')->name('palavras.index')->middleware('auth:professor');
+	Route::get('/adicionar', 'PalavrasController@create')->name('palavra.adicionar')->middleware('auth:professor');
+	Route::get('/editar/{id}', 'PalavrasController@edit')->name('palavra.editar')->middleware('auth:professor');
+	Route::post('/store', 'PalavrasController@store')->name('palavra.store')->middleware('auth:professor');
+	Route::patch('/update/{id}', 'PalavrasController@update')->name('palavra.update')->middleware('auth:professor');
+	Route::post('/delete', 'PalavrasController@delete')->name('palavra.delete')->middleware('auth:professor');
+});
