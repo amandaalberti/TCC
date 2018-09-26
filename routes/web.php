@@ -11,44 +11,51 @@
 |
 */
 
-Route::get('/alfabeto', function(){
-	return view('aluno.alfabeto');
-})->middleware('auth:aluno');
-
-Route::get('/opcoes/{letra}', function($letra){
-	return view('aluno.opcoes')->with('letra', $letra);
-})->name('opcoes')->middleware('auth:aluno');
-
-Route::get('/video/{tipo}/{letra}', 'VideosController@index')->middleware('auth:aluno');
-
-//Auth::routes();
 // Authentication Routes...
-Route::get('/', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
-Route::post('/', 'Auth\LoginController@login')->middleware('guest');
-Route::post('sair', 'Auth\LoginController@logout')->name('logout')->middleware('guest');
-// Registration Routes...
-Route::get('cadastro', 'Auth\RegisterController@showRegistrationForm')->name('register')->middleware('guest');
-Route::post('cadastro', 'Auth\RegisterController@register')->middleware('guest');
-// Password Reset Routes...
-Route::get('esqueceu-sua-senha', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request')->middleware('guest');
-Route::post('esqueceu-sua-senha/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email')->middleware('guest');
-Route::get('esqueceu-sua-senha/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset')->middleware('guest');
-Route::post('esqueceu-sua-senha', 'Auth\ResetPasswordController@reset')->middleware('guest');
+Route::post('sair', 'Auth\LoginController@logout')->name('logout');
+Route::group(['middleware' => ['guest:professor', 'guest:aluno']], function(){
+	Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+	Route::post('/', 'Auth\LoginController@login');
 
-Route::group(['prefix' => '/alunos'], function(){
-	Route::get('/', 'AlunosController@index')->name('alunos.index')->middleware('auth:professor');
-	Route::get('/adicionar', 'AlunosController@create')->name('aluno.adicionar')->middleware('auth:professor');
-	Route::get('/editar/{id}', 'AlunosController@edit')->name('aluno.editar')->middleware('auth:professor');
-	Route::post('/store', 'AlunosController@store')->name('aluno.store')->middleware('auth:professor');
-	Route::patch('/update/{id}', 'AlunosController@update')->name('aluno.update')->middleware('auth:professor');
-	Route::post('/delete', 'AlunosController@delete')->name('aluno.delete')->middleware('auth:professor');
+	// Registration Routes...
+	Route::get('cadastro', 'Auth\RegisterController@showRegistrationForm')->name('register');
+	Route::post('cadastro', 'Auth\RegisterController@register');
+
+	// Password Reset Routes...
+	Route::get('esqueceu-sua-senha', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+	Route::post('esqueceu-sua-senha/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+	Route::get('esqueceu-sua-senha/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+	Route::post('esqueceu-sua-senha', 'Auth\ResetPasswordController@reset');
 });
 
-Route::group(['prefix' => '/palavras'], function(){
-	Route::get('/', 'PalavrasController@index')->name('palavras.index')->middleware('auth:professor');
-	Route::get('/adicionar', 'PalavrasController@create')->name('palavra.adicionar')->middleware('auth:professor');
-	Route::get('/editar/{id}', 'PalavrasController@edit')->name('palavra.editar')->middleware('auth:professor');
-	Route::post('/store', 'PalavrasController@store')->name('palavra.store')->middleware('auth:professor');
-	Route::patch('/update/{id}', 'PalavrasController@update')->name('palavra.update')->middleware('auth:professor');
-	Route::post('/delete', 'PalavrasController@delete')->name('palavra.delete')->middleware('auth:professor');
+Route::group(['middleware' => ['auth:aluno']], function(){
+	Route::get('/alfabeto', function(){
+		return view('aluno.alfabeto');
+	});
+
+	Route::get('/opcoes/{letra}', function($letra){
+		return view('aluno.opcoes')->with('letra', $letra);
+	})->name('opcoes');
+
+	Route::get('/video/{tipo}/{letra}', 'VideosController@index');
+});
+
+Route::group(['middleware' => ['auth:professor']], function(){
+	Route::group(['prefix' => '/alunos'], function(){
+		Route::get('/', 'AlunosController@index')->name('alunos.index');
+		Route::get('/adicionar', 'AlunosController@create')->name('aluno.adicionar');
+		Route::get('/editar/{id}', 'AlunosController@edit')->name('aluno.editar');
+		Route::post('/store', 'AlunosController@store')->name('aluno.store');
+		Route::patch('/update/{id}', 'AlunosController@update')->name('aluno.update');
+		Route::post('/delete', 'AlunosController@delete')->name('aluno.delete');
+	});
+
+	Route::group(['prefix' => '/palavras'], function(){
+		Route::get('/', 'PalavrasController@index')->name('palavras.index');
+		Route::get('/adicionar', 'PalavrasController@create')->name('palavra.adicionar');
+		Route::get('/editar/{id}', 'PalavrasController@edit')->name('palavra.editar');
+		Route::post('/store', 'PalavrasController@store')->name('palavra.store');
+		Route::patch('/update/{id}', 'PalavrasController@update')->name('palavra.update');
+		Route::post('/delete', 'PalavrasController@delete')->name('palavra.delete');
+	});
 });

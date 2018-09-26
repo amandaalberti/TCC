@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if($guard == 'professor')
+            if(is_null($guard) || $guard == 'professor')
                 return redirect('/alunos');
             else if($guard == 'aluno')
                 return redirect('/alfabeto');
