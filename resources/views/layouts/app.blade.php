@@ -74,7 +74,7 @@
 
         <main class="py-4">
             <div class="container-fluid">
-                <div class="d-flex align-items-center" style="min-height: 555px;">
+                <div class="d-flex align-items-center" style="min-height: calc(100vh - 148px)">
                     <div style="display: block !important; width: 100% !important;">
                         @if(Session::has('message'))
                         <div class="alert {{ Session::get('alert-class', 'alert-primary') }} alert-dismissible fade show" role="alert">
