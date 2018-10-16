@@ -4,7 +4,7 @@
 	<tbody>
 		<tr>
 			<td style="width: 100%;">
-				<h1 class="page-header">Palavras -> {{ $create ? 'Adicionar' : 'Editar' }}</h1>
+				<h1 class="page-header">Palavras <i class="fa fa-angle-double-right"></i> {{ $create ? 'Adicionar' : 'Editar' }}</h1>
 			</td>
 			<td style="width: 1px;">
 				@include('voltar')
