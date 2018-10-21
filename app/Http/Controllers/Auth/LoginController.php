@@ -45,7 +45,7 @@ class LoginController extends Controller
     public function guard(){
         $tipo = request()->input('tipo');
         if($tipo == 'aluno'){
-            $this->redirectTo = '/alfabeto';
+            $this->redirectTo = '/inicio';
             return Auth::guard('aluno');
         }
         else

@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
             if(is_null($guard) || $guard == 'professor')
                 return redirect('/alunos');
             else if($guard == 'aluno')
-                return redirect('/alfabeto');
+                return redirect('/inicio');
         }
 
         return $next($request);

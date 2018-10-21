@@ -29,15 +29,25 @@ Route::group(['middleware' => ['guest:professor', 'guest:aluno']], function(){
 });
 
 Route::group(['middleware' => ['auth:aluno']], function(){
+	Route::get('/inicio', function(){
+		return view('aluno.index');
+	})->name('inicio');
+
 	Route::get('/alfabeto', function(){
 		return view('aluno.alfabeto');
-	});
+	})->name('alfabeto');
 
 	Route::get('/opcoes/{letra}', function($letra){
 		return view('aluno.opcoes')->with('letra', $letra);
 	})->name('opcoes');
 
-	Route::get('/video/{tipo}/{letra}', 'VideosController@index');
+	Route::get('/video/{tipo}/{letra}', 'VideosController@index')->name('video');
+
+	Route::group(['prefix' => 'exercicios'], function(){
+		Route::get('/', 'ExerciciosController@index')->name('exercicios');
+		Route::get('/dados/{numeroCertas?}/{numeroErradas?}', 'ExerciciosController@geraDados');
+		Route::post('/grava-resultado', 'ExerciciosController@gravaResultado');
+	});
 });
 
 Route::group(['middleware' => ['auth:professor']], function(){

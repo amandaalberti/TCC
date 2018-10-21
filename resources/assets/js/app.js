@@ -18,7 +18,11 @@ Vue.use(datePicker);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('loading', require('./components/loading.vue'));
+Vue.component('exercicios', require('./components/exercicios/principal.vue'));
+Vue.component('exercicioPalavraCorrespondente', require('./components/exercicios/palavraCorrespondente.vue'));
+Vue.component('exercicioQuantidadeSilabas', require('./components/exercicios/quantSilabas.vue'));
+Vue.component('exercicioLetraFaltante', require('./components/exercicios/letraFaltante.vue'));
 
 const app = new Vue({
     el: '#app'
@@ -31,21 +35,7 @@ $(function(){
 		window.location = window.addr + '/opcoes/' + letra;
 	});
 
-	//Se está na página de opções
-	if($('#assistir-video').length){
-		//Associa os eventos
-		let redirecionaAoVideo = function(tipo){
-			let letra = $('#letra').val();
-
-			window.location = addr + '/video/' + tipo + '/' + letra;
-		}
-
-		$('#assistir-video').on('click', function(){
-			redirecionaAoVideo('historia');
-		});
-
-		$('#metodo-boquinhas').on('click', function(){
-			redirecionaAoVideo('boquinha');
-		});
-	}
+	$('.opcao').on('click', function(){
+		window.location = $(this).find('a').attr('href');
+	});
 });

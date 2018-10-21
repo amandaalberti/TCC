@@ -14,14 +14,7 @@ class PalavrasController extends Controller
     public function index(){
     	$palavras = Palavra::orderBy('palavra', 'asc')->paginate(50);
 
-    	foreach($palavras as $palavra)
-    		if($palavra->imagem){
-    			$f = finfo_open();
-				$mime_type = finfo_buffer($f, $palavra->imagem, FILEINFO_MIME_TYPE);
-				$palavra->imagem = "data:$mime_type;base64," . base64_encode($palavra->imagem);
-    		}
-            else
-                $palavra->imagem = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+    	self::preparaExibicaoPalavras($palavras);
 
     	return view('professor.palavras')->with('palavras', $palavras)->with('action', route('palavra.delete'));
     }
@@ -51,13 +44,7 @@ class PalavrasController extends Controller
     public function edit($id){
         $palavra = Palavra::findOrFail($id);
 
-        if($palavra->imagem){
-            $f = finfo_open();
-            $mime_type = finfo_buffer($f, $palavra->imagem, FILEINFO_MIME_TYPE);
-            $palavra->imagem = "data:$mime_type;base64," . base64_encode($palavra->imagem);
-        }
-        else
-            $palavra->imagem = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        self::preparaExibicao($palavra);
 
         return view('professor.formPalavras')->with('create', false)->with('action', route('palavra.update', $id))->with('palavra', $palavra);
     }
@@ -98,5 +85,22 @@ class PalavrasController extends Controller
         }
 
         return redirect()->route('palavras.index');
+    }
+
+    public static function preparaExibicao(&$palavra){
+        if($palavra->imagem){
+            $f = finfo_open();
+            $mime_type = finfo_buffer($f, $palavra->imagem, FILEINFO_MIME_TYPE);
+            $palavra->imagem = "data:$mime_type;base64," . base64_encode($palavra->imagem);
+        }
+        else
+            $palavra->imagem = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        return $palavra;
+    }
+
+    public static function preparaExibicaoPalavras(&$palavras){
+        foreach($palavras as &$palavra)
+            self::preparaExibicao($palavra);
+        return $palavras;
     }
 }

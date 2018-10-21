@@ -42,4 +42,7 @@
 		<div class="letra btn-success"><span>Z</span></div>
 	</div>
 </div>
+<div class="row">
+	@include('voltar')
+</div>
 @endsection
