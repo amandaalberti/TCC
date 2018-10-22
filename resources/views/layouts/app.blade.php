@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>ABC do Bem</title>
 
     <script type="text/javascript">
         window.addr = '{{ url('/') }}';
@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img height="50" src="{{ asset('png/logo.png') }}" alt="ABC do Bem" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar Navegação">
                     <span class="navbar-toggler-icon"></span>
@@ -74,7 +74,7 @@
 
         <main class="py-4">
             <div class="container-fluid">
-                <div class="d-flex align-items-center" style="min-height: calc(100vh - 148px)">
+                <div class="d-flex align-items-center" style="min-height: calc(100vh - 168px)">
                     <div style="display: block !important; width: 100% !important;">
                         @if(Session::has('message'))
                         <div class="alert {{ Session::get('alert-class', 'alert-primary') }} alert-dismissible fade show" role="alert">
