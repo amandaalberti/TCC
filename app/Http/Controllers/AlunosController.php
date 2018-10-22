@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aluno;
+use App\RespostaExercicio;
 use Auth;
 use Validator;
 use Hash;
@@ -117,5 +118,115 @@ class AlunosController extends Controller
 		}
 
 		return redirect()->route('alunos.index');
+	}
+
+	public function verGraficos($id){
+		$aluno = Aluno::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
+
+		return view('professor.graficosAluno')->with('aluno', $aluno);
+	}
+
+	public function dadosGraficos($id){
+		$aluno = Aluno::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
+
+		$filtros = request()->only('dataInicial', 'dataFinal', 'tipo');
+
+		try {
+			$dataInicial = Carbon::createFromFormat('d/m/Y', $filtros['dataInicial']);
+			$dataFinal = Carbon::createFromFormat('d/m/Y', $filtros['dataFinal']);
+		} catch (\Exception $e){
+			$dataInicial = Carbon::today()->addDays(-30);
+			$dataFinal = Carbon::today();
+		}
+
+		$query = RespostaExercicio::whereBetween('data', [$dataInicial, $dataFinal])->where('aluno_id', $id);
+
+		if(isset($filtros['tipo']) && in_array($filtros['tipo'], [1, 2, 3]))
+			$query->where('tipo', $filtros['tipo']);
+
+		$resultados = $query->get();
+
+		$series = $this->processaGrafico($resultados);
+
+		return response()->json($series, 200);
+	}
+
+	private function processaGrafico($dados){
+		$series = [
+			[
+				'name' => 'Acertos',
+				'showInLegend' => false,
+				'data' => [
+					0 => 0,
+					1 => 0,
+					2 => 0,
+					3 => 0,
+					4 => 0,
+					5 => 0,
+					6 => 0,
+					7 => 0,
+					8 => 0,
+					9 => 0,
+					10 => 0,
+					11 => 0,
+					12 => 0,
+					13 => 0,
+					14 => 0,
+					15 => 0,
+					16 => 0,
+					17 => 0,
+					18 => 0,
+					19 => 0,
+					20 => 0,
+					21 => 0,
+					22 => 0,
+					23 => 0,
+					24 => 0,
+					25 => 0
+				]
+			],
+			[
+				'name' => 'Erros',
+				'showInLegend' => false,
+				'data' => [
+					0 => 0,
+					1 => 0,
+					2 => 0,
+					3 => 0,
+					4 => 0,
+					5 => 0,
+					6 => 0,
+					7 => 0,
+					8 => 0,
+					9 => 0,
+					10 => 0,
+					11 => 0,
+					12 => 0,
+					13 => 0,
+					14 => 0,
+					15 => 0,
+					16 => 0,
+					17 => 0,
+					18 => 0,
+					19 => 0,
+					20 => 0,
+					21 => 0,
+					22 => 0,
+					23 => 0,
+					24 => 0,
+					25 => 0
+				]
+			]
+		];
+
+		$letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+		foreach($dados as $d)
+			if($d['acertou'])
+				$series[0]['data'][array_search($d['letra'], $letras)]++;
+			else
+				$series[1]['data'][array_search($d['letra'], $letras)]++;
+
+		return $series;
 	}
 }

@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth:professor']], function(){
 		Route::post('/store', 'AlunosController@store')->name('aluno.store');
 		Route::patch('/update/{id}', 'AlunosController@update')->name('aluno.update');
 		Route::post('/delete', 'AlunosController@delete')->name('aluno.delete');
+		Route::get('/graficos/{id}', 'AlunosController@verGraficos')->name('aluno.graficos');
+		Route::post('/graficos/{id}/dados', 'AlunosController@dadosGraficos')->name('aluno.dadosGraficos');
 	});
 
 	Route::group(['prefix' => '/palavras'], function(){

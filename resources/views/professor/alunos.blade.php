@@ -32,6 +32,8 @@
 					<td>{{ $aluno['usuario'] }}</td>
 					<td>{{ $aluno['nome'] }}</td>
 					<td class="pull-right">
+						<a href="{{ route('aluno.graficos', $aluno['id']) }}" class="btn btn-info"><i class="fa fa-bar-chart"></i></a>
+						&nbsp;
 						<a href="{{ route('aluno.editar', $aluno['id']) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 						&nbsp;
 						<button type="button" class="btn btn-danger" onClick="submitDelete({{ $aluno['id'] }})"><i class="fa fa-times"></i></button>
