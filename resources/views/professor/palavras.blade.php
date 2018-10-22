@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('content')
-<table>
+<table style="width:100%">
 	<tbody>
 		<tr>
-			<td style="width: 100%;">
+			<td>
 				<h1 class="page-header">Palavras</h1>
 			</td>
-			<td style="width: 1px;">
+			<td class="text-right">
 				<a href="{{ route('palavra.adicionar') }}" class="btn btn-success"><i class="fa fa-plus"></i><span class="d-none d-sm-inline-block">&nbsp;Adicionar</span></a>
+				<button class="btn btn-tomato" type="button" onClick="history.back();"><i class="fa fa-arrow-left"></i><span class="d-none d-sm-inline-block">&nbsp;Voltar</span></button>
 			</td>
 		</tr>
 	</tbody>

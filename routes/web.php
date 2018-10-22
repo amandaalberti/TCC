@@ -51,6 +51,10 @@ Route::group(['middleware' => ['auth:aluno']], function(){
 });
 
 Route::group(['middleware' => ['auth:professor']], function(){
+	Route::get('inicio-professor', function(){
+		return view('professor.index');
+	});
+
 	Route::group(['prefix' => '/alunos'], function(){
 		Route::get('/', 'AlunosController@index')->name('alunos.index');
 		Route::get('/adicionar', 'AlunosController@create')->name('aluno.adicionar');

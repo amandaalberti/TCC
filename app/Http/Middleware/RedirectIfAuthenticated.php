@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             if(is_null($guard) || $guard == 'professor')
-                return redirect('/alunos');
+                return redirect('/inicio-professor');
             else if($guard == 'aluno')
                 return redirect('/inicio');
         }
