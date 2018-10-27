@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aluno;
 use App\RespostaExercicio;
 use Auth;
+use DB;
 use Validator;
 use Hash;
 use Carbon\Carbon;
@@ -49,7 +50,7 @@ class AlunosController extends Controller
 	    session()->flash('alert-class', 'alert-success');
 	    session()->flash('message', 'Aluno criado com sucesso!');
 
-		return redirect()->route('aluno.editar', $aluno->id);
+		return redirect()->route('alunos.index');
 	}
 
 	public function edit($id){
@@ -139,7 +140,7 @@ class AlunosController extends Controller
 			$dataFinal = Carbon::today();
 		}
 
-		$query = RespostaExercicio::whereBetween('data', [$dataInicial, $dataFinal])->where('aluno_id', $id);
+		$query = RespostaExercicio::whereBetween(DB::raw('DATE(data)'), [$dataInicial->format('Y-m-d'), $dataFinal->format('Y-m-d')])->where('aluno_id', $id);
 
 		if(isset($filtros['tipo']) && in_array($filtros['tipo'], [1, 2, 3]))
 			$query->where('tipo', $filtros['tipo']);

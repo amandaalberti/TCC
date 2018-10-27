@@ -33,7 +33,7 @@
 					<td>{{ $aluno['usuario'] }}</td>
 					<td>{{ $aluno['nome'] }}</td>
 					<td class="pull-right">
-						<a href="{{ route('aluno.graficos', $aluno['id']) }}" class="btn btn-info"><i class="fa fa-bar-chart"></i></a>
+						<a href="{{ route('aluno.graficos', $aluno['id']) }}" class="btn btn-warning" style="color:white!important"><i class="fa fa-bar-chart"></i></a>
 						&nbsp;
 						<a href="{{ route('aluno.editar', $aluno['id']) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 						&nbsp;
