@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-12 text-center btn-group-toggle">
 				<template v-for="(i,index) in embaralhado">
-					<label :class="{'btn':true, 'btn-verde':true, 'btn-lg':true, 'mb-3':true, 'active':respostaSelecionada == index}">
+					<label :class="{'btn':true, 'btn-resposta':true, 'btn-lg':true, 'mb-3':true, 'active':respostaSelecionada == index}">
 						<input type="radio" name="silabas" v-model="respostaSelecionada" :value="index" autocomplete="off" /> {{ i }}
 					</label>
 					<br class="d-block d-sm-none" />

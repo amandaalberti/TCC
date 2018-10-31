@@ -84,11 +84,15 @@
 				let imagens = [];
 
 				if(acertou){
+					let audio = new Audio(addr + '/wav/aplausos.wav');
+					audio.play();
 					for(let i = 1; i <= quantidadeImagensAcerto; i++)
 						imagens.push(i);
 					this.textoFeedback = "Parabéns,<br />você acertou!";
 					this.caminhoImagemFeedback = baseCaminhoImagem + "positivo" + _.sample(imagens) + ".gif";
 				} else {
+					let audio = new Audio(addr + '/wav/erro.wav');
+					audio.play();
 					for(let i = 1; i <= quantidadeImagensErro; i++)
 						imagens.push(i);
 					this.textoFeedback = "Tente na próxima,<br />você consegue!";

@@ -16,7 +16,11 @@
 }
 
 .navbar-dark .navbar-nav .nav-link {
-	color: white;
+	color: white !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+	color: rgba(255,255,255,0.8) !important;
 }
 
 footer {
@@ -100,6 +104,9 @@ footer {
 }
 .btn-oceano {
 	@include button-variant(#00FFFF, white, #40E0D0);
+}
+.btn-resposta {
+	@include button-variant(#ffe856, #dddddd, #10BC10, white, #10BC10, white);
 }
 
 .btn-xlg {
