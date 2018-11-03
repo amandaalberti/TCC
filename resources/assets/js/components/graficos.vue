@@ -87,6 +87,15 @@
 		},
 		methods: {
 			getDados(){
+				if(this.dataInicial == '' || this.dataFinal == ''){
+					let data = new Date();
+
+					this.dataFinal = this.formataData(data);
+
+					data.setDate(data.getDate() - 30);
+
+					this.dataInicial = this.formataData(data);
+				}
 				this.$refs.grafico.chart.showLoading();
 				axios.post(addr + '/alunos/graficos/' + this.idAluno + '/dados', {
 					tipo: this.tipo,
@@ -96,11 +105,16 @@
 					this.options.series = response.data;
 
 					response = null;
+
+					this.options.title.text = 'Acertos e Erros Por Letra - De ' + this.dataInicial + ' Até ' + this.dataFinal;
 				},
 				error => {
 					console.error('Erro');
 					console.dir(error);
 				});
+			},
+			formataData(a){
+				return a.getDate() + '/' + ("0" + (a.getMonth() + 1)).slice(-2) + '/' + a.getFullYear();
 			}
 		}
 	};

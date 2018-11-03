@@ -1,15 +1,10 @@
 @extends('layouts.app')
-@push('nav')
-<li class="nav-item">
-    <a class="nav-link" href="{{ route('register') }}">Cadastrar Professor</a>
-</li>
-@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);">Login</div>
+                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);"><strong>Login</strong></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}" aria-label="Login" id="frmLogin">
@@ -53,9 +48,13 @@
                                     Sou Aluno
                                 </button>
 
+                                <br />
+
+                                <div style="position: relative;left: -12px;">
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Esqueceu sua senha?
                                 </a>
+                                <a class="btn btn-link" href="{{ route('register') }}">Cadastrar Professor</a></div>
                             </div>
                         </div>
                     </form>

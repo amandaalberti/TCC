@@ -65,7 +65,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endauth
                         @stack('nav')
                     </ul>
                 </div>
