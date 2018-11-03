@@ -92,7 +92,7 @@
         </main>
 
         <footer>
-            v1.0
+            &nbsp;
         </footer>
     </div>
 </body>
