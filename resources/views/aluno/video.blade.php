@@ -8,7 +8,7 @@
 	@endif
 	
 	<div class="col-12 col-sm-8">
-		<video src="{{ $url }}" controls="" preload=""></video>
+		<video src="{{ $url }}" controls="" preload="" controlsList="nodownload"></video>
 	</div>
 
 	@if($tipo == 'boquinha')
