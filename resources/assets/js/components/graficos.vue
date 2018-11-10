@@ -31,7 +31,9 @@
 			</tbody>
 		</table>
 
-		<highcharts ref="grafico" :options="options"></highcharts>
+		<div style="overflow-x:auto!important">
+			<highcharts ref="grafico" :options="options"></highcharts>
+		</div>
 
 		<div style="overflow-x:auto!important">
 			<loading v-if="loading"></loading>
