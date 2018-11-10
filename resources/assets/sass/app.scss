@@ -119,3 +119,13 @@ footer {
 video {
 	width: 100%;
 }
+
+.table-component__th--sort-asc:after {
+    content: '\F0D7';
+    font-family: 'FontAwesome';
+}
+
+.table-component__th--sort-desc:after {
+    content: '\F0D8';
+    font-family: 'FontAwesome';
+}

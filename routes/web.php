@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:aluno']], function(){
 
 	Route::group(['prefix' => 'exercicios'], function(){
 		Route::get('/', 'ExerciciosController@index')->name('exercicios');
-		Route::get('/dados/{numeroCertas?}/{numeroErradas?}', 'ExerciciosController@geraDados');
+		Route::get('/dados/{numeroErradas?}', 'ExerciciosController@geraDados');
 		Route::post('/grava-resultado', 'ExerciciosController@gravaResultado');
 	});
 });

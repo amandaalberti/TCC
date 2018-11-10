@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);">Redefinir Senha</div>
+                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);"><strong>Redefinir Senha (Professor)</strong></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.request') }}" aria-label="Redefinir Senha">

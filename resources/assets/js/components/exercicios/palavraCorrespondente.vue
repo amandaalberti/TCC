@@ -7,14 +7,14 @@
 		</div>
 		<div class="row justify-content-center mb-3">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center">
-				<img :src="dados.respostas[0].imagem" />
+				<img :src="dados.resposta.imagem" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12 text-center btn-group-toggle">
 				<template v-for="(p,index) in embaralhado">
 					<label :class="{'btn':true, 'btn-resposta':true, 'btn-lg':true, 'mb-3':true, 'active':respostaSelecionada == index}">
-						<input type="radio" name="palavraCorrespondente" v-model="respostaSelecionada" :value="index" autocomplete="off" /> {{ p.palavra }}
+						<input type="radio" name="palavraCorrespondente" v-model="respostaSelecionada" :value="index" autocomplete="off" /> {{ p }}
 					</label>
 					<br class="d-block d-sm-none" />
 					&#x20;
@@ -49,16 +49,16 @@
 				this.carregado = false;
 				try {
 					let a = [];
-					a.push(this.dados.respostas[0]);
+					a.push(this.dados.resposta.palavra);
 					for(let i = 0; i < 3; i++)
-						a.push(this.dados.outras[i]);
+						a.push(this.dados.outras[i].palavra);
 
 					for(let i = 0; i < 4; i++)
 						if(a[i] === undefined)
 							throw new Error();
 
 					this.embaralhado = this.shuffle(a);
-					this.indexCerta = this.embaralhado.indexOf(this.dados.respostas[0]);
+					this.indexCerta = this.embaralhado.indexOf(this.dados.resposta.palavra);
 					console.log(this.indexCerta);
 
 					Vue.nextTick(() => {

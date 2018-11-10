@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Professor;
+use App\Palavra;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Storage;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -64,11 +67,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Professor::create([
+        $professor = Professor::create([
             'usuario' => $data['usuario'],
             'nome' => $data['nome'],
             'email' => $data['email'],
             'senha' => Hash::make($data['senha']),
         ]);
+
+        $arquivo = base_path() . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'palavras.dat';
+
+        try {
+            $handle = fopen($arquivo, "r");
+
+            while(($sql = fgets($handle)) !== false)
+                DB::unprepared(DB::raw(str_replace('?', $professor->id, $sql)));
+        } finally {
+            if(isset($handle))
+                fclose($handle);
+        }
+
+        return $professor;
     }
 }

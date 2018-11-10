@@ -21,6 +21,14 @@
 	</div>
 </template>
 
+<style type="text/css">
+	.btn {
+		margin: 0 15px;
+		padding: 15px 30px;
+    	font-size: 25px;
+	}
+</style>
+
 <script type="text/javascript">
 	export default {
 		data(){
@@ -37,7 +45,7 @@
 				//os exercícios serão separados por tipo, que será um número indicando o tipo
 				//nesse arquivo será gerado um número randômico que indicará o tipo do exercício a ser criado
 				//será feito um ajax para gerar os dados aleatoriamente, que conterá a letra relacionada
-				//esse ajax receberá parâmetros para gerar uma quantidade de respostas certas e uma quantidade de respostas erradas.
+				//esse ajax receberá parâmetros para gerar uma quantidade de respostas erradas.
 				loading: true
 			};
 		},
@@ -50,13 +58,12 @@
 
 				this.tipo = _.sample([1,2,3]); //seleção do exercício
 
-				let certas = 1;
 				let erradas = 3;
 
 				if(this.tipo == 2 || this.tipo == 3)
 					erradas = 0;
 
-				axios.get(addr + "/exercicios/dados/" + certas + "/" + erradas).then(response => {
+				axios.get(addr + "/exercicios/dados/" + erradas).then(response => {
 					this.dados[this.tipo] = response.data;
 					console.log(this.dados[this.tipo]);
 
@@ -104,16 +111,25 @@
 				}, 4000);
 			},
 			proximoExercicio(){
+				if(this.$refs[this.tipo].respostaSelecionada === -1)
+					return;
+
 				this.loading = true;
 
 				let r = this.$refs[this.tipo].pegaResposta();
+				let certa = this.$refs[this.tipo].embaralhado[this.$refs[this.tipo].indexCerta];
+				let selecionada = this.$refs[this.tipo].embaralhado[this.$refs[this.tipo].respostaSelecionada];
+				let palavra = this.dados[this.tipo].resposta.palavra;
 
 				this.feedback(r);
 
 				axios.post(addr + "/exercicios/grava-resultado", {
 					tipo: this.tipo,
 					letra: this.dados[this.tipo].letra,
-					acertou: r
+					acertou: r,
+					palavra: palavra,
+					resposta_certa: certa,
+					resposta_selecionada: selecionada
 				}).then(() => {
 					this.geraExercicio();
 				}, error => {

@@ -20,6 +20,9 @@ class CreateRespostaExerciciosTable extends Migration
             $table->smallInteger('tipo');
             $table->enum('letra', ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
             $table->boolean('acertou');
+            $table->string('palavra', 46);
+            $table->string('resposta_certa');
+            $table->string('resposta_selecionada');
             $table->timestamp('data');
         });
     }

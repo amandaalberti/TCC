@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);">Cadastro</div>
+                <div class="card-header text-white" style="background-color: rgb(255, 193, 133);"><strong>Cadastro de Professor</strong></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" aria-label="Cadastro">
@@ -81,6 +81,7 @@
                                     Cadastrar
                                 </button>
                             </div>
+                            @include('voltar')
                         </div>
                     </form>
                 </div>

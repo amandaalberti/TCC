@@ -15,19 +15,18 @@ class ExerciciosController extends Controller
 		return view('aluno.exercicios');
 	}
 
-    public function geraDados($numeroCertas = 1, $numeroErradas = 3){
-    	if(!is_numeric($numeroCertas) ||
-    	   !is_numeric($numeroErradas))
+    public function geraDados($numeroErradas = 3){
+    	if(!is_numeric($numeroErradas))
     		return response()->json(['mensagem' => 'Erro de validação.'], 400);
 
     	$letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     	$letra = $letras[array_rand($letras)];
 
-    	$certas = Palavra::where("letra", '=', $letra)->limit($numeroCertas)->orderBy(DB::raw('RAND()'))->get();
+    	$certa = Palavra::where("letra", '=', $letra)->limit(1)->orderBy(DB::raw('RAND()'))->get();
     	$erradas = Palavra::where("letra", '<>', $letra)->limit($numeroErradas)->orderBy(DB::raw('RAND()'))->get();
     	$palavras = [
     		'letra' => $letra,
-    		'respostas' => PalavrasController::preparaExibicaoPalavras($certas),
+    		'resposta' => PalavrasController::preparaExibicaoPalavras($certa)[0] ?? null,
     		'outras' => PalavrasController::preparaExibicaoPalavras($erradas)
     	];
     	return response()->json($palavras, 200);
@@ -37,19 +36,25 @@ class ExerciciosController extends Controller
         $validacao = Validator::make($request->all(), [
             'tipo' => 'required|integer',
             'letra' => 'required|in:A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z',
-            'acertou' => 'required|boolean'
+            'acertou' => 'required|boolean',
+            'palavra' => 'required',
+            'resposta_certa' => 'required',
+            'resposta_selecionada' => 'required'
         ]);
 
         if($validacao->fails())
             return response()->json(['mensagem' => 'Erro de validação.'], 400);
 
-        $dados = $request->only(['tipo', 'letra', 'acertou']);
+        $dados = $request->only(['tipo', 'letra', 'acertou', 'palavra', 'resposta_certa', 'resposta_selecionada']);
 
         RespostaExercicio::create([
             'aluno_id' => Auth::user()->id,
             'tipo' => (int)$dados['tipo'],
             'letra' => $dados['letra'],
-            'acertou' => (bool)$dados['acertou']
+            'acertou' => (bool)$dados['acertou'],
+            'palavra' => $dados['palavra'],
+            'resposta_certa' => $dados['resposta_certa'],
+            'resposta_selecionada' => $dados['resposta_selecionada']
         ]);
 
         return response()->json(['mensagem' => 'OK'], 201);

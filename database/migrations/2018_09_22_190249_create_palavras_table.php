@@ -18,6 +18,8 @@ class CreatePalavrasTable extends Migration
             $table->string('palavra', 46);
             $table->tinyInteger('silabas');
             $table->enum('letra', ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+            $table->unsignedInteger('professor_id');
+            $table->foreign('professor_id')->references('id')->on('professores')->onDelete('cascade');
             $table->timestamps();
         });
         DB::statement("ALTER TABLE palavras ADD imagem MEDIUMBLOB AFTER palavra");

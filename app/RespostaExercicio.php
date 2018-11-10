@@ -15,6 +15,6 @@ class RespostaExercicio extends Model
      * @var array
      */
     protected $fillable = [
-        'tipo', 'aluno_id', 'acertou', 'letra'
+        'tipo', 'aluno_id', 'acertou', 'letra', 'palavra', 'resposta_certa', 'resposta_selecionada'
     ];
 }

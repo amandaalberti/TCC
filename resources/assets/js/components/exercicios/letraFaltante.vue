@@ -7,7 +7,7 @@
 		</div>
 		<div class="row justify-content-center mb-4">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center">
-				<img :src="dados.respostas[0].imagem" />
+				<img :src="dados.resposta.imagem" />
 			</div>
 		</div>
 		<div class="row mb-3">
@@ -54,7 +54,7 @@
 				this.respostaSelecionada = -1;
 				this.carregado = false;
 				try {
-					if(this.dados.respostas[0] === undefined)
+					if(this.dados.resposta === undefined)
 						throw new Error();
 
 					let letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -76,7 +76,7 @@
 					this.indexCerta = this.embaralhado.indexOf(this.dados.letra);
 					console.log(this.indexCerta);
 
-					let p = this.dados.respostas[0].palavra.split("");
+					let p = this.dados.resposta.palavra.split("");
 					let indexes = [];
 					for(i = 0; i < p.length; i++)
 						if(p[i].toLocaleLowerCase("pt-BR").localeCompare(this.dados.letra.toLocaleLowerCase("pt-BR"), "pt-BR", {sensitivity: 'base'}) === 0)

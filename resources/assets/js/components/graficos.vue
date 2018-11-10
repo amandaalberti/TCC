@@ -15,9 +15,7 @@
 										<date-picker :config="{locale:'pt-br', useStrict:true, format:'DD/MM/YYYY', useCurrent: false, defaultDate: ''}" placeholder="Data Final" v-model="dataFinal" class="mr-2"></date-picker>
 										<select class="form-control mr-2" v-model="tipo">
 											<option value="0">Tipo do Exercício</option>
-											<option value="1">Palavra Correspondente</option>
-											<option value="2">Quantidade de Sílabas</option>
-											<option value="3">Letra Faltante</option>
+											<option v-for="(t, i) in tipos" :value="i">{{ t }}</option>
 										</select>
 										<button class="btn btn-info btn-xlg mr-2" type="button" @click.prevent="getDados"><i class="fa fa-search"></i> Filtrar</button>
 										<button class="btn btn-tomato btn-xlg mr-2" type="button" onClick="history.back();"><i class="fa fa-arrow-left"></i> Voltar</button>
@@ -34,8 +32,44 @@
 		</table>
 
 		<highcharts ref="grafico" :options="options"></highcharts>
+
+		<div style="overflow-x:auto!important">
+			<loading v-if="loading"></loading>
+			<table-component v-if="!loading" :data="dados" :show-filter="false" :show-caption="false" cache-lifetime="0">
+	            <table-column cell-class="padding-0" show="tipo" label="Tipo do Exercício">
+	                <template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ tipos[row.tipo] }}</div></template>
+	            </table-column>
+	            <table-column cell-class="padding-0" show="letra" label="Letra Associada">
+	            	<template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ row.letra }}</div></template>
+	            </table-column>
+	            <table-column cell-class="padding-0" show="palavra" label="Palavra">
+	            	<template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ row.palavra }}</div></template>
+	            </table-column>
+	            <table-column cell-class="padding-0" show="resposta_certa" label="Resposta Certa">
+	            	<template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ row.resposta_certa }}</div></template>
+	            </table-column>
+	            <table-column cell-class="padding-0" show="resposta_selecionada" label="Resposta Selecionada">
+	            	<template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ row.resposta_selecionada }}</div></template>
+	            </table-column>
+	            <table-column cell-class="padding-0" show="data" label="Data da Resposta">
+	            	<template slot-scope="row"><div :class="(row.acertou == 1 ? 'table-success' : 'table-danger') + ' full'">{{ row.data }}</div></template>
+	            </table-column>
+	        </table-component>
+	    </div>
 	</div>
 </template>
+
+<style type="text/css">
+	.padding-0 {
+		padding: 0 !important;
+	}
+	.full {
+		width: 100% !important;
+		height: 100% !important;
+		padding: 0.75rem;
+		white-space: nowrap;
+	}
+</style>
 
 <script type="text/javascript">
 	export default {
@@ -79,7 +113,14 @@
 				},
 				tipo: 0,
 				dataInicial: '',
-				dataFinal: ''
+				dataFinal: '',
+				loading: false,
+				dados: [],
+				tipos: {
+					1: 'Palavra Correspondente',
+					2: 'Quantidade de Sílabas',
+					3: 'Letra Faltante'
+				}
 			};
 		},
 		mounted(){
@@ -96,17 +137,21 @@
 
 					this.dataInicial = this.formataData(data);
 				}
+				this.loading = true;
 				this.$refs.grafico.chart.showLoading();
 				axios.post(addr + '/alunos/graficos/' + this.idAluno + '/dados', {
 					tipo: this.tipo,
 					dataInicial: this.dataInicial,
 					dataFinal: this.dataFinal
 				}).then(response => {
-					this.options.series = response.data;
+					this.options.series = response.data.series;
+					this.dados = response.data.resultados || [];
 
 					response = null;
 
 					this.options.title.text = 'Acertos e Erros Por Letra - De ' + this.dataInicial + ' Até ' + this.dataFinal;
+
+					this.loading = false;
 				},
 				error => {
 					console.error('Erro');

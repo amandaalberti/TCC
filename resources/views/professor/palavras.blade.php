@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+@if($exibeAviso)
+<strong style="color:red">Aviso: É necessário o cadastro pelo menos uma palavra por letra do alfabeto para o funcionamento correto dos exercícios!</strong>
+@endif
 <table style="width:100%">
 	<tbody>
 		<tr>

@@ -34,35 +34,6 @@
     </div>
 
     <div class="form-group row">
-        <label for="imagem" class="col-md-4 col-form-label text-md-right">Imagem</label>
-
-        <div class="col-md-6">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="{{ $palavra->imagem ?? 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' }}" width="45" alt="{{ $palavra->palavra ?? '' }}">
-                        </td>
-                        <td style="width: 100%;">
-                            <input id="imagem" type="file" class="form-control{{ $errors->has('imagem') ? ' is-invalid' : '' }}" name="imagem" 
-                            @if($create)
-                            required
-                            @endif
-                            >
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            @if ($errors->has('imagem'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('imagem') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-
-    <div class="form-group row">
         <label for="silabas" class="col-md-4 col-form-label text-md-right">Nº de Sílabas</label>
 
         <div class="col-md-6">
@@ -113,6 +84,35 @@
             @if ($errors->has('letra'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('letra') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="imagem" class="col-md-4 col-form-label text-md-right">Imagem</label>
+
+        <div class="col-md-6">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="{{ $palavra->imagem ?? 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' }}" width="45" alt="{{ $palavra->palavra ?? '' }}">
+                        </td>
+                        <td style="width: 100%;">
+                            <input id="imagem" type="file" class="{{ $errors->has('imagem') ? 'is-invalid' : '' }}" style="width:100%" name="imagem" 
+                            @if($create)
+                            required
+                            @endif
+                            >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @if ($errors->has('imagem'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('imagem') }}</strong>
                 </span>
             @endif
         </div>

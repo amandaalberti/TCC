@@ -12,6 +12,6 @@ class Palavra extends Model
      * @var array
      */
     protected $fillable = [
-        'palavra', 'imagem', 'silabas', 'letra'
+        'palavra', 'imagem', 'silabas', 'letra', 'professor_id'
     ];
 }

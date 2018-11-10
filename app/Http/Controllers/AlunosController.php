@@ -45,7 +45,7 @@ class AlunosController extends Controller
 
 	    $validated['senha'] = Hash::make($validated['senha']);
 
-		$aluno = Aluno::create($validated);
+		Aluno::create($validated);
 
 	    session()->flash('alert-class', 'alert-success');
 	    session()->flash('message', 'Aluno criado com sucesso!');
@@ -149,7 +149,17 @@ class AlunosController extends Controller
 
 		$series = $this->processaGrafico($resultados);
 
-		return response()->json($series, 200);
+		$res = $resultados->toArray();
+
+		foreach($res as &$r)
+			$r['data'] = Carbon::createFromFormat('Y-m-d H:i:s', $r['data'])->format('d/m/Y H:i:s');
+
+		$dados = [
+			'resultados' => $res,
+			'series' => $series
+		];
+
+		return response()->json($dados, 200);
 	}
 
 	private function processaGrafico($dados){

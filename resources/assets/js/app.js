@@ -38,6 +38,13 @@ Highcharts.setOptions({
 });
 Vue.use(VueHighcharts, {Highcharts});
 
+import TableComponent from 'vue-table-component';
+Vue.use(TableComponent, {
+    tableClass: 'table table-striped',
+    filterPlaceholder: 'Filtrar',
+    filterNoResults: 'Nenhum registro foi encontrado.'
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

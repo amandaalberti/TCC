@@ -25,6 +25,7 @@
         "highcharts": "^6.2.0",
         "imagemin": "^6.0.0",
         "vue-bootstrap-datetimepicker": "^5.0.1",
-        "vue-highcharts": "0.0.10"
+        "vue-highcharts": "0.0.10",
+        "vue-table-component": "^1.9.2"
     }
 }

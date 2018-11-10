@@ -7,12 +7,12 @@
 		</div>
 		<div class="row justify-content-center mb-4">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center">
-				<img :src="dados.respostas[0].imagem" />
+				<img :src="dados.resposta.imagem" />
 			</div>
 		</div>
 		<div class="row mb-3">
 			<div class="col-12 text-center">
-				<h1>{{ this.dados.respostas[0].palavra }}</h1>
+				<h1>{{ this.dados.resposta.palavra }}</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -53,20 +53,20 @@
 				this.respostaSelecionada = -1;
 				this.carregado = false;
 				try {
-					if(this.dados.respostas[0] === undefined)
+					if(this.dados.resposta === undefined)
 						throw new Error();
 
 					let a = [];
-					a.push(this.dados.respostas[0].silabas);
+					a.push(this.dados.resposta.silabas);
 
-					let min = this.dados.respostas[0].silabas - 2;
-					let max = this.dados.respostas[0].silabas + 2;
+					let min = this.dados.resposta.silabas - 2;
+					let max = this.dados.resposta.silabas + 2;
 					if(min < 1)
 						min = 1;
 
 					let b = [];
 					for(let i = min; i <= max; i++)
-						if(i != this.dados.respostas[0].silabas)
+						if(i != this.dados.resposta.silabas)
 							b.push(i);
 
 					let i = 0;
@@ -80,7 +80,7 @@
 					}
 
 					this.embaralhado = this.shuffle(a);
-					this.indexCerta = this.embaralhado.indexOf(this.dados.respostas[0].silabas);
+					this.indexCerta = this.embaralhado.indexOf(this.dados.resposta.silabas);
 					console.log(this.indexCerta);
 
 					Vue.nextTick(() => {

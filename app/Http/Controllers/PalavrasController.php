@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Palavra;
+use DB;
+use Auth;
 
 class PalavrasController extends Controller
 {
@@ -12,11 +14,13 @@ class PalavrasController extends Controller
     }
 
     public function index(){
-    	$palavras = Palavra::orderBy('palavra', 'asc')->paginate(50);
+    	$palavras = Palavra::where('professor_id', '=', Auth::user()->id)->orderBy('palavra', 'asc')->paginate(50);
+
+        $quantLetrasComPalavras = count(DB::table('palavras')->selectRaw('DISTINCT letra')->get());
 
     	self::preparaExibicaoPalavras($palavras);
 
-    	return view('professor.palavras')->with('palavras', $palavras)->with('action', route('palavra.delete'));
+    	return view('professor.palavras')->with('palavras', $palavras)->with('action', route('palavra.delete'))->with('exibeAviso', $quantLetrasComPalavras != 26);
     }
 
     public function create(){
@@ -33,16 +37,18 @@ class PalavrasController extends Controller
 
         $validated['imagem'] = $validated['imagem']->openFile()->fread($validated['imagem']->getSize());
 
-        $palavra = Palavra::create($validated);
+        $validated['professor_id'] = Auth::user()->id;
+
+        Palavra::create($validated);
 
         session()->flash('alert-class', 'alert-success');
         session()->flash('message', 'Palavra cadastrada com sucesso!');
 
-        return redirect()->route('palavra.editar', $palavra->id);
+        return redirect()->route('palavras.index');
     }
 
     public function edit($id){
-        $palavra = Palavra::findOrFail($id);
+        $palavra = Palavra::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
 
         self::preparaExibicao($palavra);
 
@@ -50,7 +56,7 @@ class PalavrasController extends Controller
     }
 
     public function update(Request $request, $id){
-        $palavra = Palavra::findOrFail($id);
+        $palavra = Palavra::where('professor_id', '=', Auth::user()->id)->findOrFail($id);
 
         $validacao = [
             'palavra' => 'required|string|max:46',
@@ -78,7 +84,7 @@ class PalavrasController extends Controller
     	$id = request()->input('delete_id');
 
         if($id){
-            Palavra::where('id','=',$id)->delete();
+            Palavra::where('id','=',$id)->where('professor_id', '=', Auth::user()->id)->delete();
 
             session()->flash('alert-class', 'alert-success');
             session()->flash('message', 'Palavra excluída com sucesso!');
