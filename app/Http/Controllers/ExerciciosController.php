@@ -22,8 +22,8 @@ class ExerciciosController extends Controller
     	$letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     	$letra = $letras[array_rand($letras)];
 
-    	$certa = Palavra::where("letra", '=', $letra)->limit(1)->orderBy(DB::raw('RAND()'))->get();
-    	$erradas = Palavra::where("letra", '<>', $letra)->limit($numeroErradas)->orderBy(DB::raw('RAND()'))->get();
+    	$certa = Palavra::where("letra", '=', $letra)->where("professor_id", "=", Auth::user()->professor_id)->limit(1)->orderBy(DB::raw('RAND()'))->get();
+    	$erradas = Palavra::where("letra", '<>', $letra)->where("professor_id", "=", Auth::user()->professor_id)->limit($numeroErradas)->orderBy(DB::raw('RAND()'))->get();
     	$palavras = [
     		'letra' => $letra,
     		'resposta' => PalavrasController::preparaExibicaoPalavras($certa)[0] ?? null,
