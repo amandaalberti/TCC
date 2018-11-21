@@ -69,7 +69,12 @@ $(function(){
 		window.location = window.addr + '/opcoes/' + letra;
 	});
 
-	$('.opcao').on('click', function(){
-		window.location = $(this).find('a').attr('href');
-	});
+    $('.opcao').on('click', function(){
+        window.location = $(this).find('a').attr('href');
+    });
+
+    $('.opcao a').on('click', function(e){
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+    });
 });

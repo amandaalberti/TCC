@@ -98,7 +98,7 @@
 					this.textoFeedback = "Parabéns,<br />você acertou!";
 					this.caminhoImagemFeedback = baseCaminhoImagem + "positivo" + _.sample(imagens) + ".gif";
 				} else {
-					let audio = new Audio(addr + '/wav/erro.wav');
+					let audio = new Audio(addr + '/wav/erro.wav?1');
 					audio.play();
 					for(let i = 1; i <= quantidadeImagensErro; i++)
 						imagens.push(i);
